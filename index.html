@@ -2,210 +2,172 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ساعة HUAWEI الرقمية</title>
+    <title>ساعة HUAWEI الذكية</title>
+    
+    <!-- إعدادات PWA -->
+    <meta name="theme-color" content="#ff0000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f552.svg">
+    
+    <!-- لأجهزة iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HUAWEI Clock">
+    
+    <!-- لأجهزة Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="HUAWEI Clock">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+            background: black;
             color: white;
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            font-family: Arial;
+            margin: 0;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-            text-align: center;
         }
-        
-        .logo {
-            color: #ff0000;
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            letter-spacing: 2px;
+        h1 {
+            color: red;
+            font-size: 50px;
+            margin: 20px;
         }
-        
-        .clock-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            max-width: 800px;
-            width: 90%;
+        #clock {
+            font-size: 80px;
+            color: cyan;
+            margin: 30px;
+            text-shadow: 0 0 20px cyan;
+            direction: ltr;
         }
-        
-        .time {
-            font-size: 6rem;
-            color: #00ffff;
-            font-weight: 300;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
-            font-family: 'Digital-7', 'Courier New', monospace;
-            margin: 20px 0;
-        }
-        
         .date {
-            font-size: 2rem;
-            color: #ff6b6b;
-            margin: 20px 0;
-            font-weight: 300;
+            font-size: 25px;
+            color: gold;
+            margin: 20px;
         }
-        
-        .features {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .feature-box {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 15px 25px;
-            border-radius: 10px;
-            min-width: 150px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .feature-box h3 {
-            color: #4dffea;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
         .footer {
+            color: #888;
             margin-top: 40px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
         }
         
-        @media (max-width: 768px) {
-            .time {
-                font-size: 4rem;
-            }
-            
-            .date {
-                font-size: 1.5rem;
-            }
-            
-            .logo {
-                font-size: 2.5rem;
-            }
+        /* زر التثبيت */
+        .install-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff0000;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(255,0,0,0.4);
+            display: none;
         }
         
-        @media (max-width: 480px) {
-            .time {
-                font-size: 3rem;
-            }
-            
-            .clock-container {
-                padding: 20px;
-            }
-            
-            .feature-box {
-                min-width: 120px;
-                padding: 10px 15px;
-            }
+        @media (max-width: 600px) {
+            #clock { font-size: 60px; }
+            h1 { font-size: 40px; }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1 class="logo">
-        <i class="fas fa-bolt"></i> HUAWEI
-    </h1>
-    
-    <div class="clock-container">
-        <div class="time" id="time">00:00:00</div>
-        <div class="date" id="date">السبت، ١ يناير ٢٠٢٤</div>
-        
-        <div class="features">
-            <div class="feature-box">
-                <h3><i class="fas fa-globe"></i> المنطقة الزمنية</h3>
-                <div id="timezone">GMT+3</div>
-            </div>
-            
-            <div class="feature-box">
-                <h3><i class="fas fa-sun"></i> حالة اليوم</h3>
-                <div id="dayPeriod">مساءً</div>
-            </div>
-            
-            <div class="feature-box">
-                <h3><i class="fas fa-clock"></i> التوقيت العالمي</h3>
-                <div id="utc">UTC: 00:00</div>
-            </div>
-        </div>
-    </div>
+    <h1>HUAWEI ⌚</h1>
+    <div id="clock">00:00:00</div>
+    <div class="date" id="date">السبت ١ يناير ٢٠٢٤</div>
     
     <div class="footer">
-        <p>ساعة HUAWEI الرقمية | تطوير باستخدام HTML, CSS, JavaScript</p>
-        <p>يعمل على جميع المتصفحات والأجهزة</p>
+        تطوير ساعة HUAWEI الرقمية<br>
+        يعمل على جميع الأجهزة
     </div>
+    
+    <!-- زر التثبيت -->
+    <button id="installButton" class="install-btn">📲 تثبيت التطبيق</button>
 
     <script>
+        // دالة تحديث الوقت
         function updateTime() {
-            const now = new Date();
+            var now = new Date();
             
             // الوقت
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
             
-            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+            // إضافة صفر إذا كان أقل من 10
+            if (hours < 10) hours = '0' + hours;
+            if (minutes < 10) minutes = '0' + minutes;
+            if (seconds < 10) seconds = '0' + seconds;
             
-            // التاريخ
-            const options = { 
+            document.getElementById('clock').innerHTML = 
+                hours + ':' + minutes + ':' + seconds;
+            
+            // التاريخ العربي
+            var options = { 
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
-                day: 'numeric',
-                calendar: 'islamic'
+                day: 'numeric' 
             };
-            document.getElementById('date').textContent = now.toLocaleDateString('ar-SA', options);
-            
-            // التوقيت العالمي
-            const utcHours = String(now.getUTCHours()).padStart(2, '0');
-            const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
-            document.getElementById('utc').textContent = `UTC: ${utcHours}:${utcMinutes}`;
-            
-            // حالة اليوم
-            const period = hours < 12 ? 'صباحًا' : hours < 18 ? 'ظهرًا' : 'مساءً';
-            document.getElementById('dayPeriod').textContent = period;
-            
-            // تغيير لون الساعة حسب الوقت
-            const timeElement = document.getElementById('time');
-            if (hours < 6 || hours >= 18) {
-                timeElement.style.color = '#a855f7'; // لون ليلي
-                timeElement.style.textShadow = '0 0 20px rgba(168, 85, 247, 0.7)';
-            } else if (hours < 12) {
-                timeElement.style.color = '#f59e0b'; // لون الصباح
-                timeElement.style.textShadow = '0 0 20px rgba(245, 158, 11, 0.7)';
-            } else {
-                timeElement.style.color = '#00ffff'; // لون الظهيرة
-                timeElement.style.textShadow = '0 0 20px rgba(0, 255, 255, 0.7)';
-            }
+            document.getElementById('date').innerHTML = 
+                now.toLocaleDateString('ar-SA', options);
         }
         
-        // تحديث الوقت كل ثانية
         setInterval(updateTime, 1000);
-        
-        // تحديث فوري عند التحميل
         updateTime();
         
-        // تحديد المنطقة الزمنية
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const offset = -new Date().getTimezoneOffset() / 60;
-        document.getElementById('timezone').textContent = `GMT${offset >= 0 ? '+' : ''}${offset}`;
+        // كود PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registered');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker failed: ', err);
+                    });
+            });
+        }
+        
+        // التثبيت على الهاتف
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // إظهار زر التثبيت
+            installButton.style.display = 'block';
+            
+            installButton.addEventListener('click', () => {
+                installButton.style.display = 'none';
+                deferredPrompt.prompt();
+                
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('تم تثبيت التطبيق');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+        
+        // إخفاء الزر إذا كان التطبيق مثبتاً
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+        });
+        
+        // التحقق إذا كان التطبيق مثبتاً بالفعل
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installButton.style.display = 'none';
+        }
     </script>
 </body>
 </html>
