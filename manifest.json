@@ -1,0 +1,21 @@
+{
+  "name": "ساعة HUAWEI الذكية",
+  "short_name": "HUAWEI Clock",
+  "description": "ساعة رقمية بتصميم HUAWEI - تعمل دون اتصال",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
