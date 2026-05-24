@@ -2,172 +2,214 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>ساعة HUAWEI الذكية</title>
-    
-    <!-- إعدادات PWA -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ساعة هواوي - الساعة الرقمية الذكية</title>
+    <meta name="description" content="ساعة رقمية ذكية بتصميم HUAWEI الأنيق، تعرض الوقت والتاريخ الهجري والميلادي مع ألوان متغيرة حسب الوقت.">
+    <meta name="keywords" content="ساعة, هواوي, وقت, تاريخ, هجري, ميلادي, رقمية">
+    <meta name="author" content="Nourddine90">
     <meta name="theme-color" content="#ff0000">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f552.svg">
     
-    <!-- لأجهزة iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="HUAWEI Clock">
+    <!-- Open Graph -->
+    <meta property="og:title" content="ساعة هواوي الرقمية">
+    <meta property="og:description" content="ساعة رقمية أنيقة تعرض الوقت والتاريخ بتصميم HUAWEI">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nourddine90.github.io/huawei-clock/">
+    <meta property="og:image" content="https://img.icons8.com/color/512/clock--v1.png">
     
-    <!-- لأجهزة Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="HUAWEI Clock">
+    <!-- أيقونة الموقع -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='red'>⏰</text></svg>">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: black;
+            background: #000;
             color: white;
             text-align: center;
-            padding: 20px;
-            font-family: Arial;
-            margin: 0;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
         }
-        h1 {
-            color: red;
-            font-size: 50px;
+        
+        .header {
+            color: #ff0000;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 0, 0, 0.7); }
+            to { text-shadow: 0 0 30px rgba(255, 0, 0, 0.9); }
+        }
+        
+        .clock-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
             margin: 20px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
         }
-        #clock {
-            font-size: 80px;
-            color: cyan;
-            margin: 30px;
-            text-shadow: 0 0 20px cyan;
+        
+        #time {
+            font-size: 72px;
+            color: #00ffff;
+            font-weight: bold;
+            text-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
             direction: ltr;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            transition: color 0.5s;
         }
-        .date {
-            font-size: 25px;
-            color: gold;
-            margin: 20px;
+        
+        #date {
+            font-size: 24px;
+            color: #ffcc00;
+            margin: 20px 0;
+            line-height: 1.5;
         }
-        .footer {
-            color: #888;
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
             margin-top: 40px;
         }
         
-        /* زر التثبيت */
-        .install-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #ff0000;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 14px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(255,0,0,0.4);
-            display: none;
+        .feature {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 150px;
         }
         
-        @media (max-width: 600px) {
-            #clock { font-size: 60px; }
-            h1 { font-size: 40px; }
+        .feature h3 {
+            color: #4df0ff;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .footer {
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 50px;
+            font-size: 14px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        @media (max-width: 768px) {
+            .header { font-size: 36px; }
+            #time { font-size: 56px; }
+            .clock-container { padding: 30px 20px; }
+        }
+        
+        @media (max-width: 480px) {
+            #time { font-size: 42px; }
+            .header { font-size: 28px; }
+            .features { flex-direction: column; }
+            .feature { min-width: auto; }
         }
     </style>
 </head>
 <body>
-    <h1>HUAWEI ⌚</h1>
-    <div id="clock">00:00:00</div>
-    <div class="date" id="date">السبت ١ يناير ٢٠٢٤</div>
+    <header role="banner">
+        <h1 class="header">HUAWEI ⏰</h1>
+    </header>
     
-    <div class="footer">
-        تطوير ساعة HUAWEI الرقمية<br>
-        يعمل على جميع الأجهزة
-    </div>
+    <main role="main">
+        <div class="clock-container" role="timer" aria-label="الساعة الرقمية">
+            <div id="time" role="text" aria-live="polite">00:00:00</div>
+            <div id="date" role="text">جاري التحميل...</div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>🕐 الوقت الحالي</h3>
+                    <div>يتحدد كل ثانية</div>
+                </div>
+                <div class="feature">
+                    <h3>📅 التاريخ</h3>
+                    <div>هجري/ميلادي</div>
+                </div>
+                <div class="feature">
+                    <h3>📱 التصميم</h3>
+                    <div>متجاوب مع جميع الشاشات</div>
+                </div>
+            </div>
+        </div>
+    </main>
     
-    <!-- زر التثبيت -->
-    <button id="installButton" class="install-btn">📲 تثبيت التطبيق</button>
+    <footer role="contentinfo" class="footer">
+        <p>✨ ساعة HUAWEI الرقمية المتطورة ✨</p>
+        <p>تم التطوير باستخدام HTML5, CSS3 & JavaScript</p>
+        <p>يعمل على جميع الأجهزة والمتصفحات</p>
+    </footer>
 
     <script>
-        // دالة تحديث الوقت
         function updateTime() {
-            var now = new Date();
+            const now = new Date();
             
-            // الوقت
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var seconds = now.getSeconds();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
             
-            // إضافة صفر إذا كان أقل من 10
-            if (hours < 10) hours = '0' + hours;
-            if (minutes < 10) minutes = '0' + minutes;
-            if (seconds < 10) seconds = '0' + seconds;
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
             
-            document.getElementById('clock').innerHTML = 
-                hours + ':' + minutes + ':' + seconds;
+            document.getElementById('time').textContent = 
+                `${hours}:${minutes}:${seconds}`;
             
-            // التاريخ العربي
-            var options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             };
-            document.getElementById('date').innerHTML = 
-                now.toLocaleDateString('ar-SA', options);
+            document.getElementById('date').textContent = 
+                now.toLocaleDateString('ar-SA', dateOptions);
+            
+            const timeElement = document.getElementById('time');
+            const hour = parseInt(hours);
+            
+            if (hour < 6) {
+                timeElement.style.color = '#ff66ff';
+                timeElement.style.textShadow = '0 0 25px #ff66ff';
+            } else if (hour < 12) {
+                timeElement.style.color = '#ff9900';
+                timeElement.style.textShadow = '0 0 25px #ff9900';
+            } else if (hour < 17) {
+                timeElement.style.color = '#00ffaa';
+                timeElement.style.textShadow = '0 0 25px #00ffaa';
+            } else if (hour < 20) {
+                timeElement.style.color = '#00aaff';
+                timeElement.style.textShadow = '0 0 25px #00aaff';
+            } else {
+                timeElement.style.color = '#aa66ff';
+                timeElement.style.textShadow = '0 0 25px #aa66ff';
+            }
         }
         
         setInterval(updateTime, 1000);
         updateTime();
-        
-        // كود PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registered');
-                    })
-                    .catch(function(err) {
-                        console.log('ServiceWorker failed: ', err);
-                    });
-            });
-        }
-        
-        // التثبيت على الهاتف
-        let deferredPrompt;
-        const installButton = document.getElementById('installButton');
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // إظهار زر التثبيت
-            installButton.style.display = 'block';
-            
-            installButton.addEventListener('click', () => {
-                installButton.style.display = 'none';
-                deferredPrompt.prompt();
-                
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('تم تثبيت التطبيق');
-                    }
-                    deferredPrompt = null;
-                });
-            });
-        });
-        
-        // إخفاء الزر إذا كان التطبيق مثبتاً
-        window.addEventListener('appinstalled', () => {
-            installButton.style.display = 'none';
-        });
-        
-        // التحقق إذا كان التطبيق مثبتاً بالفعل
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installButton.style.display = 'none';
-        }
     </script>
 </body>
 </html>
